@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSCRIM-EDUC Student Portal - Gerald Canoy</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS File -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-body-tertiary">
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: STUDENT PORTAL LOGIN SCREEN        -->
+    <!-- ========================================== -->
+    <section id="loginView" class="container min-vh-100 d-flex align-items-center justify-content-center py-4">
+        <div class="card shadow-lg border-0" style="max-width: 430px; width: 100%;">
+            <div class="card-header login-header text-white text-center py-4 rounded-top">
+                <h1 class="h4 fw-bold mb-1">BSCRIM - EDUC</h1>
+                <p class="small text-white-50 mb-0">Official Student Portal Login</p>
+            </div>
+            <div class="card-body p-4">
+                <div id="loginAlert" aria-live="polite"></div>
+
+                <form id="loginForm" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="loginStudentId" class="form-label fw-semibold">Student ID Number</label>
+                        <input type="text" class="form-control" id="loginStudentId" value="2026-BSCRIM-014" required>
+                        <div class="invalid-feedback">Please enter your Student ID.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label fw-semibold">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" value="gerald2026" required>
+                        <div class="invalid-feedback">Please enter your password.</div>
+                    </div>
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary fw-semibold py-2">Sign In to Portal</button>
+                        <button type="button" id="btnQuickDemoLogin" class="btn btn-outline-secondary btn-sm">
+                            Quick Login (Gerald Canoy)
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center text-muted small py-3 bg-transparent">
+                Phase 3 Web Systems &bull; BSCRIM / EDUC
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: MAIN STUDENT PORTAL (HIDDEN FIRST) -->
+    <!-- ========================================== -->
+    <div id="portalView" class="d-none">
+
+        <!-- Responsive Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top" aria-label="Portal Navigation">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#dashboard">BSCRIM-EDUC Portal</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#portalNavbar" aria-controls="portalNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="portalNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" href="#dashboard">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#subjects">Subjects (<span id="navUnitCount">9</span> Units)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#registration">Registration</a></li>
+                    </ul>
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <button id="btnThemeToggle" class="btn btn-outline-light btn-sm" type="button">Dark Mode</button>
+                        <button id="btnLogout" class="btn btn-danger btn-sm" type="button">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Layout -->
+        <main id="dashboard" class="container my-4">
+            <header class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+                <div>
+                    <h1 class="h3 mb-1 fw-bold">Welcome, <span id="headerStudentName">Gerald Canoy</span></h1>
+                    <p class="text-muted mb-0">Program: BS Criminology (BSCRIM) &bull; Track: Education (EDUC)</p>
+                </div>
+                <!-- Responsive Utilities Indicator -->
+                <div class="mt-2 mt-md-0">
+                    <span class="badge bg-primary d-inline-block d-sm-none">Device: Phone (XS)</span>
+                    <span class="badge bg-success d-none d-sm-inline-block d-lg-none">Device: Tablet (SM/MD)</span>
+                    <span class="badge bg-secondary d-none d-lg-inline-block">Device: Desktop (LG+)</span>
+                </div>
+            </header>
+
+            <!-- Profile & Announcements Cards -->
+            <div class="row g-4">
+                <!-- Student Profile Card -->
+                <section class="col-12 col-md-5" aria-labelledby="profile-heading">
+                    <article class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 id="profile-heading" class="h5 card-title text-primary mb-0 fw-bold">Student Profile</h2>
+                                <span id="enrollmentBadge" class="badge text-bg-success">Active Student</span>
+                            </div>
+                            <hr>
+                            <dl class="row mb-3">
+                                <dt class="col-4">Name:</dt>
+                                <dd class="col-8 fw-semibold" id="profileName">Gerald Canoy</dd>
+                                <dt class="col-4">Student ID:</dt>
+                                <dd class="col-8" id="profileId">2026-BSCRIM-014</dd>
+                                <dt class="col-4">Course:</dt>
+                                <dd class="col-8" id="profileCourse">BSCRIM (EDUC)</dd>
+                                <dt class="col-4">Year Level:</dt>
+                                <dd class="col-8" id="profileYear">3rd Year</dd>
+                                <dt class="col-4">Total Units:</dt>
+                                <dd class="col-8"><span id="profileUnits" class="fw-bold text-primary">9</span> Units</dd>
+                            </dl>
+                            <div class="d-flex flex-wrap gap-2 mt-auto">
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                                    Edit Profile
+                                </button>
+                                <button id="btnDownloadLoad" type="button" class="btn btn-outline-secondary btn-sm">
+                                    Download Study Load
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- Announcements Card -->
+                <section class="col-12 col-md-7" aria-labelledby="announcements-heading">
+                    <article class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                                <h2 id="announcements-heading" class="h5 card-title text-primary mb-0 fw-bold">
+                                    Portal Announcements <span id="unreadBadge" class="badge bg-danger ms-1">2 New</span>
+                                </h2>
+                                <button id="btnMarkRead" type="button" class="btn btn-outline-secondary btn-sm">
+                                    Mark All Read
+                                </button>
+                            </div>
+                            <hr>
+                            <ul id="announcementList" class="list-group list-group-flush mb-3">
+                                <li class="list-group-item px-0 announcement-item fw-semibold bg-transparent">
+                                    <strong>BSCRIM-EDUC Enrollment:</strong> Verify your subjects below and submit your Phase 3 Registration Form.
+                                </li>
+                                <li class="list-group-item px-0 announcement-item fw-semibold bg-transparent">
+                                    <strong>Teaching &amp; Criminology Practicum:</strong> Orientation starts Friday at 9:00 AM.
+                                </li>
+                            </ul>
+                            <div class="input-group input-group-sm mt-auto">
+                                <label for="newNoticeInput" class="visually-hidden">Add personal note</label>
+                                <input type="text" id="newNoticeInput" class="form-control" placeholder="Add a personal student note...">
+                                <button id="btnAddNotice" class="btn btn-primary" type="button">Add Note</button>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </div>
+
+            <!-- Subjects Section -->
+            <section id="subjects" class="mt-5" aria-labelledby="subjects-heading">
+                <h2 id="subjects-heading" class="h4 mb-3 fw-bold">Enrolled Subjects</h2>
+                <div class="row g-3">
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <article class="card h-100 shadow-sm border-start border-primary border-4">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="h6 fw-bold">CRIM 301: Criminalistics</h3>
+                                    <span class="badge text-bg-primary">3 Units</span>
+                                </div>
+                                <p class="small text-muted">Forensic investigation, crime scene processing, and laboratory documentation.</p>
+                                <div class="d-flex gap-2 mt-auto">
+                                    <button type="button" class="btn btn-sm btn-outline-primary btn-syllabus"
+                                        data-title="CRIM 301: Criminalistics"
+                                        data-desc="Covers forensic photography, fingerprint identification, ballistics, and crime scene evidence preservation.">
+                                        Syllabus
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-success btn-toggle-subject flex-grow-1" data-units="3">
+                                        Enrolled ✓
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <article class="card h-100 shadow-sm border-start border-success border-4">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="h6 fw-bold">EDUC 204: Principles of Teaching</h3>
+                                    <span class="badge text-bg-success">3 Units</span>
+                                </div>
+                                <p class="small text-muted">Lesson planning, classroom management, and pedagogical assessment.</p>
+                                <div class="d-flex gap-2 mt-auto">
+                                    <button type="button" class="btn btn-sm btn-outline-success btn-syllabus"
+                                        data-title="EDUC 204: Principles of Teaching"
+                                        data-desc="Focuses on lesson plan design, learner-centered instruction, and rubrics for Criminology educators.">
+                                        Syllabus
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-success btn-toggle-subject flex-grow-1" data-units="3">
+                                        Enrolled ✓
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <article class="card h-100 shadow-sm border-start border-warning border-4">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="h6 fw-bold">IT 303: Web Development</h3>
+                                    <span class="badge text-bg-warning">3 Units</span>
+                                </div>
+                                <p class="small text-muted">Responsive Bootstrap grids, semantic HTML5, and accessible forms.</p>
+                                <div class="d-flex gap-2 mt-auto">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-syllabus"
+                                        data-title="IT 303: Web Development"
+                                        data-desc="Covers mobile-first responsive grids, semantic elements, DOM events, and keyboard-accessible forms.">
+                                        Syllabus
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-success btn-toggle-subject flex-grow-1" data-units="3">
+                                        Enrolled ✓
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Registration Form -->
+            <section id="registration" class="mt-5 bg-body p-4 rounded shadow-sm border" aria-labelledby="form-heading">
+                <h2 id="form-heading" class="h4 mb-3 fw-bold">Student Registration Form</h2>
+                <div id="formAlertContainer" aria-live="polite"></div>
+
+                <form id="portalForm" class="row g-3 needs-validation" novalidate>
+                    <div class="col-12 col-md-6">
+                        <label for="studentName" class="form-label fw-semibold">Student Full Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="studentName" value="Gerald Canoy" required>
+                        <div class="invalid-feedback">Please enter your full name.</div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label for="studentNumber" class="form-label fw-semibold">Student ID Number <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="studentNumber" value="2026-BSCRIM-014" required>
+                        <div class="invalid-feedback">Please enter your Student ID number.</div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label for="programCourse" class="form-label fw-semibold">Course / Track <span class="text-danger">*</span></label>
+                        <select class="form-select" id="programCourse" required>
+                            <option value="BSCRIM (EDUC)" selected>BSCRIM — Education Track (EDUC)</option>
+                            <option value="BSCRIM (General)">BS Criminology (General)</option>
+                            <option value="BSED">Bachelor of Secondary Education (BSED)</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a course.</div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label for="yearLevel" class="form-label fw-semibold">Year Level <span class="text-danger">*</span></label>
+                        <select class="form-select" id="yearLevel" required>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year" selected>3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
+                        <div class="invalid-feedback">Please select your year level.</div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label for="studentEmail" class="form-label fw-semibold">Student Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="studentEmail" placeholder="gerald.canoy@student.edu.ph" required>
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="confirmCheck" required>
+                            <label class="form-check-label" for="confirmCheck">
+                                I confirm that my BSCRIM / EDUC registration details are accurate.
+                            </label>
+                            <div class="invalid-feedback">You must confirm before submitting.</div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 d-flex flex-wrap gap-2">
+                        <button class="btn btn-primary px-4 fw-semibold" type="submit">Submit Registration</button>
+                        <button id="btnResetForm" class="btn btn-outline-secondary" type="button">Reset Form</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+
+        <footer class="container text-center py-4 text-muted small border-top mt-5">
+            <p class="mb-0">&copy; 2026 Gerald Canoy &bull; BSCRIM / EDUC Student Portal</p>
+        </footer>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title h5 fw-bold" id="editProfileModalLabel">Edit Student Profile</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editNameInput" class="form-label fw-semibold">Full Name</label>
+                        <input type="text" class="form-control" id="editNameInput" value="Gerald Canoy">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editIdInput" class="form-label fw-semibold">Student ID</label>
+                        <input type="text" class="form-control" id="editIdInput" value="2026-BSCRIM-014">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCourseInput" class="form-label fw-semibold">Course / Track</label>
+                        <input type="text" class="form-control" id="editCourseInput" value="BSCRIM (EDUC)">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btnSaveProfile" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Syllabus Modal -->
+    <div class="modal fade" id="syllabusModal" tabindex="-1" aria-labelledby="syllabusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title h5 fw-bold" id="syllabusModalLabel">Subject Syllabus</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="syllabusDesc" class="mb-0"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript File -->
+    <script src="jss.js"></script>
+</body>
+</html>
